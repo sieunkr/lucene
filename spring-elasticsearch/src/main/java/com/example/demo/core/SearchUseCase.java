@@ -1,6 +1,7 @@
 package com.example.demo.core;
 
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -13,10 +14,15 @@ public class SearchUseCase {
     }
 
     public Mono<Void> insertContent(Content content){
-        elasticsearchDetails.insertContent(content);
+        return elasticsearchDetails.insertContent(content);
+    }
 
-        //TODO:Mono.empty() ?? or Mono.create..
-        return null;
+    public Mono<Void> deleteContent(Integer id){
+        return elasticsearchDetails.deleteContent(id);
+    }
+
+    public Flux<Content> searchExactContentBySyno(String query){
+        return elasticsearchDetails.searchExactContentBySyno(query);
     }
 
 }
